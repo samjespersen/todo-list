@@ -24,11 +24,29 @@ app.use(express.json()); // enable reading incoming json data
 app.get('/api/list', (req, res) => {
     client.query(`
         SELECT * FROM list
-        ORDER BY date_added DESC;
+        ORDER BY date_added ASC;
         `)
         .then(result => {
-            console.log(result.rows);
             res.json(result.rows);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err.message || err
+            });
+        });
+});
+
+app.post('/api/list', (req, res) => {
+    const item = req.body;
+    client.query(`
+        INSERT INTO list (text, date_added, completed)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+    `,
+    [item.text, item.date_added, false]
+    )
+        .then(result => {
+            res.json(result.rows[0]);
         })
         .catch(err => {
             res.status(500).json({
