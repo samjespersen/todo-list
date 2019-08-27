@@ -1,6 +1,7 @@
 import Component from '../Component.js';
 import Header from './Header.js';
 import ListApp from './ListApp.js';
+import { getList } from '../../services/list-api.js';
 
 class App extends Component {
 
@@ -12,21 +13,11 @@ class App extends Component {
         const list = new ListApp({ items: [] });
         dom.querySelector('main').appendChild(list.renderDOM());
 
-        //const items = getItems();
+        getList()
+            .then(items => {
+                list.update({ items });
+            });
 
-        const items = [{
-            id: 1,
-            text: 'Complete lab 11',
-            date_added: 1566923916376,
-            completed: false
-        }, {
-            id: 1,
-            text: 'Complete lab 11',
-            date_added: 1566923916376,
-            completed: false
-        }];
-
-        list.update({ items });
     }
 
     renderHTML() {

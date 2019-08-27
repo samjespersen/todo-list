@@ -4,7 +4,7 @@ class Item extends Component {
 
     renderHTML() {
         const item = this.props.item;
-        const date = new Date(item.date_added).toLocaleString();
+        const date = new Date(+item.date_added).toLocaleString();
         return /*html*/`
              <div class="item">
                 <div>
