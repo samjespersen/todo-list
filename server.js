@@ -55,7 +55,33 @@ app.post('/api/list', (req, res) => {
         });
 });
 
+app.put('/api/list/:id', (req, res) => {
+    const item = req.body;
+    const id = req.params.id;
+    let dateCompleted;
+    let isCompleted;
+    if(!item.completed) {
+        dateCompleted = item.date_completed;
+        isCompleted = true;
+    } else {
+        dateCompleted = '';
+        isCompleted = false;
+    }
 
+    client.query(`
+        UPDATE list
+        SET completed = $2,
+            date_completed = $3
+        WHERE id = $1
+        RETURNING *;
+    `,
+    [id, isCompleted, dateCompleted]
+    )
+        .then(result => {
+            res.json(result.rows[0]);
+        });
+
+});
 
 // Start the server
 app.listen(PORT, () => {

@@ -1,12 +1,14 @@
 import Component from '../Component.js';
 import Item from '../Item/Item.js';
 
+
 class ListApp extends Component {
     onRender(dom) {
         const items = this.props.items;
         const addItem = this.props.addItem;
+
         items.forEach(item => {
-            const itemRender = new Item({ item }).renderDOM();
+            const itemRender = new Item({ item: item, updateItem: this.props.updateItem }).renderDOM();
             dom.querySelector('#items').appendChild(itemRender);
         });
 
@@ -18,6 +20,7 @@ class ListApp extends Component {
             const item = {
                 text: text,
                 date_added: date,
+                updateItem: this.props.items.updateItem
             };
             addItem(item);
         });

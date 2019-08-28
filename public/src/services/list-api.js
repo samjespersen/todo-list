@@ -22,12 +22,22 @@ export function getList() {
 
 export function addItem(item) {
     const url = `${URL}/list`;
-    return fetch(url, {
+    return fetchWithError(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(item)
-    })
-        .then(response => response.json());
+    });
+}
+
+export function updateItem(data) {
+    const url = `${URL}/list/${data.id}`;
+    return fetchWithError(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    });
 }

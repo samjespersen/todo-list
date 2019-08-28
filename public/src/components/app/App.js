@@ -1,7 +1,7 @@
 import Component from '../Component.js';
 import Header from './Header.js';
 import ListApp from './ListApp.js';
-import { getList, addItem } from '../../services/list-api.js';
+import { getList, addItem, updateItem } from '../../services/list-api.js';
 
 class App extends Component {
 
@@ -13,11 +13,19 @@ class App extends Component {
                 return addItem(item)
                     .then(newItem => {
                         const stateItems = this.state.items;
-                        console.log(stateItems);
                         if(stateItems) {
                             stateItems.push(newItem);
                             list.update({ items: stateItems });
                         }
+                    });
+            },
+            updateItem: item => {
+                return updateItem(item)
+                    .then(updatedItem => {
+                        const items = this.state.items;
+                        const index = items.indexOf(item);
+                        items.splice(index, 1, updatedItem);
+                        list.update({ items });
                     });
             }
         };
