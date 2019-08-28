@@ -12,10 +12,10 @@ class App extends Component {
             addItem: item => {
                 return addItem(item)
                     .then(newItem => {
-                        const stateItems = this.state.items;
-                        if(stateItems) {
-                            stateItems.push(newItem);
-                            list.update({ items: stateItems });
+                        const items = this.state.items;
+                        if(items) {
+                            items.push(newItem);
+                            list.update({ items });
                         }
                     });
             },

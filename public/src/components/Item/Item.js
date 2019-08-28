@@ -22,9 +22,11 @@ class Item extends Component {
                     <input type="checkbox" value="${item.id}" ${item.completed ? 'checked' : null}>
                     <p>${item.text}</p>
                 </div> 
-                <span class="date">${date}</span>
-             </div>
-        `;
+                <span class="date">${item.completed ? `Completed on ${new Date(+item.date_completed).toLocaleString()}` : ''}
+    </span>
+        <span class="date">Added on ${date}</span>
+             </div >
+    `;
     }
 }
 
