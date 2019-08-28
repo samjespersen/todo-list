@@ -29,7 +29,7 @@ main {
 #list {
     border: 1px solid black;
     height: auto;
-    width:700px;
+    width:1000px;
 }
 
 #error {
@@ -84,6 +84,9 @@ main {
 
 input:checked + p {
    text-decoration: line-through;
+}
+input:checked {
+   background-color: green;
 }
 
 .date {

@@ -22,7 +22,10 @@ class ListApp extends Component {
                 date_added: date,
                 updateItem: this.props.items.updateItem
             };
-            addItem(item);
+            addItem(item)
+                .catch(err => {
+                    error.textContent = err;
+                });
         });
 
 

@@ -49,11 +49,17 @@ app.post('/api/list', (req, res) => {
             res.json(result.rows[0]);
         })
         .catch(err => {
+            if(err.code === '23505') {
+                res.status(400).json({
+                    error: `Type "${item.text}" already exists`
+                });
+            }
             res.status(500).json({
                 error: err.message || err
             });
         });
 });
+
 
 app.put('/api/list/:id', (req, res) => {
     const item = req.body;
@@ -79,6 +85,11 @@ app.put('/api/list/:id', (req, res) => {
     )
         .then(result => {
             res.json(result.rows[0]);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err.message || err
+            });
         });
 
 });
