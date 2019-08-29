@@ -28,8 +28,7 @@ main {
 }
 
 #list {
-    border: 1px solid black;
-    height: auto;
+   height: auto;
     width:1000px;
 }
 
@@ -108,11 +107,14 @@ input:checked {
 
 .option {
     background-color: white;
-    border:3px dashed grey;
-    border-bottom: 0;
     padding: 20px;
-    width:40%;
+    width:50%;
     font-size:2em;
+    border:transparent;
+}
+
+.option:focus{
+        outline:0;
 }
 
 #auth-box{
@@ -133,4 +135,10 @@ justify-content:space-between;
 
 #auth-container{
     width: 500px;
+}
+
+.selected {
+    border:3px dashed grey;
+    border-bottom: 0;
+
 }

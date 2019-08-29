@@ -3,7 +3,7 @@ import store from './store.js';
 
 const userToken = store.getToken();
 
-if(!userToken && location.pathname !== '/public/auth.html') {
+if(!userToken && location.pathname !== '/auth.html') {
     const searchParams = new URLSearchParams();
     searchParams.set('redirect', location.pathname);
     location = `auth.html?${searchParams.toString()}`;
