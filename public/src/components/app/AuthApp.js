@@ -60,6 +60,8 @@ class AuthApp extends Component {
             signUpBox.classList.add('hidden');
             dom.querySelector('#signin-button').classList.add('selected');
             dom.querySelector('#signup-button').classList.remove('selected');
+            error.textContent = '';
+
 
         });
 
@@ -68,6 +70,8 @@ class AuthApp extends Component {
             signUpBox.classList.remove('hidden');
             dom.querySelector('#signin-button').classList.remove('selected');
             dom.querySelector('#signup-button').classList.add('selected');
+            error.textContent = '';
+
         });
 
 
@@ -78,7 +82,6 @@ class AuthApp extends Component {
         return /*html*/`
              <div id="root">
                 <main>
-                    <p class="error"></p>
                     <div id="auth-container">
                  <section id="button-box"> 
                         <button id="signin-button" class="option selected">Sign In</button>
@@ -90,7 +93,9 @@ class AuthApp extends Component {
                     <section id="signup-box" class="hidden">
                     </section>
                     </section>
+                    <p class="error"></p>
                     </div>
+
                 </main>
             </div>
         `;
