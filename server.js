@@ -12,6 +12,31 @@ const Client = pg.Client;
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
 
+//Auth
+const ensureAuth = require('./lib/auth/ensure-auth');
+const createAuthRoutes = require('./lib/auth/create-auth-routes');
+const authRoutes = createAuthRoutes({
+    selectUser(email) {
+        return client.query(`
+            SELECT id, email, hash, display_name as "displayName" 
+            FROM users
+            WHERE email = $1;
+        `,
+        [email]
+        ).then(result => result.rows[0]);
+    },
+    insertUser(user, hash) {
+        return client.query(`
+            INSERT into users (email, hash, display_name)
+            VALUES ($1, $2, $3)
+            RETURNING id, email, display_name as "displayName";
+        `,
+        [user.email, hash, user.displayName]
+        ).then(result => result.rows[0]);
+    }
+});
+
+
 // Application Setup
 const app = express();
 const PORT = process.env.PORT;
@@ -20,12 +45,20 @@ app.use(cors()); // enable CORS request
 app.use(express.static('public')); // enable serving files from public
 app.use(express.json()); // enable reading incoming json data
 
+// setup authentication routes
+app.use('/api/auth', authRoutes);
+
+// everything that starts with "/api" below here requires an auth token!
+app.use('/api', ensureAuth);
+
 //routes
 app.get('/api/list', (req, res) => {
     client.query(`
         SELECT * FROM list
+        WHERE user_id = $1
         ORDER BY date_added ASC;
-        `)
+        `, [req.userId]
+    )
         .then(result => {
             res.json(result.rows);
         })
@@ -36,14 +69,15 @@ app.get('/api/list', (req, res) => {
         });
 });
 
+
 app.post('/api/list', (req, res) => {
     const item = req.body;
     client.query(`
-        INSERT INTO list (text, date_added, completed)
-        VALUES ($1, $2, $3)
+        INSERT INTO list (text, date_added, completed, user_id)
+        VALUES ($1, $2, $3, $4)
         RETURNING *;
     `,
-    [item.text, item.date_added, false]
+    [item.text, item.date_added, false, req.userId]
     )
         .then(result => {
             res.json(result.rows[0]);

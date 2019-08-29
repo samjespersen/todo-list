@@ -1,7 +1,6 @@
 import Component from '../Component.js';
 import Item from '../Item/Item.js';
 
-
 class ListApp extends Component {
     onRender(dom) {
         const items = this.props.items;

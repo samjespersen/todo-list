@@ -3,6 +3,7 @@ import Header from './Header.js';
 import ListApp from './ListApp.js';
 import { getList, addItem, updateItem } from '../../services/list-api.js';
 
+
 class App extends Component {
 
     onRender(dom) {
@@ -30,7 +31,8 @@ class App extends Component {
             }
         };
 
-        const header = new Header();
+        const headerMessage = "Do this stuff ya freakin' dingus!";
+        const header = new Header({ headerMessage });
         dom.prepend(header.renderDOM());
 
         const list = new ListApp(listProps);
