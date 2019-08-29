@@ -1,0 +1,145 @@
+#root {
+   display:flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+header {
+    background-color:hotpink;
+    border: 3px solid darkred;
+    height: 100px;
+    width: 1000px;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+h1 {
+    font-size:3em;
+    margin:0;
+    color:white;
+}
+
+main {
+    margin-top:20px;
+    /* width:500px; */
+}
+
+#list {
+   height: auto;
+    width:1000px;
+    border: 1px solid black;
+}
+
+#error {
+    font-size:.5em;
+    font-family: monospace;
+    color: red;
+    margin: 20px 0 0 0;
+}
+.error {
+    font-size:1em;
+    font-family: monospace;
+    color: red;
+    margin: 20px 0 0 0;
+}
+
+#add-item {
+    margin:20px;
+    font-size: 2em;
+    display:flex;
+    flex-direction:column;
+
+}
+
+#add-item div {
+    height: 40px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#add-item input {
+    width:90%;
+    height:100%;
+    font-size: 1.2em;
+}
+
+#add-item button {
+    width:auto;
+    background-color:white;
+    border:2px solid black;
+    height: 100%;
+    font-size:.7em;
+}
+
+.item {
+    margin:10px;
+    font-size: 1.5em;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.item p {
+    margin:0;
+    display: inline;
+}
+
+input:checked + p {
+   text-decoration: line-through;
+}
+input:checked {
+   background-color: green;
+}
+
+.date {
+    font-size:.6em;
+    color:grey;
+
+}
+
+.hidden {
+    display:none;
+}
+
+.option {
+    background-color: white;
+    padding: 20px;
+    width:50%;
+    font-size:2em;
+    border:transparent;
+}
+
+.option:focus{
+        outline:0;
+}
+
+#auth-box{
+    background-color: white;
+    border:3px dashed grey;
+    padding: 10%;
+    width: 79%;
+}
+
+#button-box{
+width: 100%;
+display:flex;
+flex-direction: row;
+justify-content:space-between;
+
+
+}
+
+#auth-container{
+    width: 500px;
+}
+
+.selected {
+    border:3px dashed grey;
+    border-bottom: 0;
+
+}
